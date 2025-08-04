@@ -27,7 +27,7 @@ class EmailService {
             secure: true,
             auth: {
                 user: "admin@algotrades.io",
-                pass: "Pass1@algotrades.io",
+                pass: "0CiO$km~",
             },
         });
     }
