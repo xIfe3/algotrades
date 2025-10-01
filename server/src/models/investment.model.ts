@@ -10,8 +10,12 @@ export interface IInvestment {
     startDate: Date;
     endDate: Date;
     isReinvestment: boolean;
-    status: "active" | "completed";
+    status: "active" | "completed" | "paused" | "terminated";
     profitAccumulated: number;
+    pausedAt?: Date;
+    resumedAt?: Date;
+    terminatedAt?: Date;
+    adminNotes?: string;
 }
 
 const investmentSchema = new mongoose.Schema<IInvestment>({
@@ -28,8 +32,16 @@ const investmentSchema = new mongoose.Schema<IInvestment>({
     startDate: { type: Date, default: Date.now },
     endDate: { type: Date, required: true },
     isReinvestment: { type: Boolean, default: false },
-    status: { type: String, enum: ["active", "completed"], default: "active" },
+    status: {
+        type: String,
+        enum: ["active", "completed", "paused", "terminated"],
+        default: "active",
+    },
     profitAccumulated: { type: Number, default: 0 },
+    pausedAt: { type: Date, default: null },
+    resumedAt: { type: Date, default: null },
+    terminatedAt: { type: Date, default: null },
+    adminNotes: { type: String, default: null },
 });
 
 export default mongoose.models.Investment ||

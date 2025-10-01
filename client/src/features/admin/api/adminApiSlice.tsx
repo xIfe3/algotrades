@@ -107,6 +107,86 @@ const adminApiSlice = baseApi.injectEndpoints({
                 body: adminData,
             }),
         }),
+
+        // Investment Management
+        getAllInvestments: builder.query({
+            query: (params = {}) => ({
+                url: "admin/get-all-investment",
+                params,
+            }),
+            providesTags: ["Investment"],
+        }),
+        getInvestmentById: builder.query({
+            query: (id) => `admin/investments/${id}`,
+        }),
+        pauseInvestment: builder.mutation({
+            query: ({ id, adminNotes }) => ({
+                url: `admin/investments/${id}/pause`,
+                method: "PUT",
+                body: { adminNotes },
+            }),
+            invalidatesTags: ["Investment"],
+        }),
+        resumeInvestment: builder.mutation({
+            query: ({ id, adminNotes }) => ({
+                url: `admin/investments/${id}/resume`,
+                method: "PUT",
+                body: { adminNotes },
+            }),
+            invalidatesTags: ["Investment"],
+        }),
+        terminateInvestment: builder.mutation({
+            query: ({ id, adminNotes, returnPrincipal }) => ({
+                url: `admin/investments/${id}/terminate`,
+                method: "PUT",
+                body: { adminNotes, returnPrincipal },
+            }),
+            invalidatesTags: ["Investment"],
+        }),
+        completeInvestment: builder.mutation({
+            query: ({ id, adminNotes, addFinalProfit }) => ({
+                url: `admin/investments/${id}/complete`,
+                method: "PUT",
+                body: { adminNotes, addFinalProfit },
+            }),
+            invalidatesTags: ["Investment"],
+        }),
+        updateInvestmentProfit: builder.mutation({
+            query: ({ id, profitAmount, adminNotes }) => ({
+                url: `admin/investments/${id}/update-profit`,
+                method: "PUT",
+                body: { profitAmount, adminNotes },
+            }),
+            invalidatesTags: ["Investment"],
+        }),
+        deleteInvestment: builder.mutation({
+            query: (id) => ({
+                url: `admin/investments/${id}`,
+                method: "DELETE",
+            }),
+            invalidatesTags: ["Investment"],
+        }),
+        updateUserWallet: builder.mutation({
+            query: ({
+                userId,
+                balanceAmount,
+                profitAmount,
+                referralBonusAmount,
+                adminNotes,
+            }) => ({
+                url: `admin/users/${userId}/update-wallet`,
+                method: "PUT",
+                body: {
+                    balanceAmount,
+                    profitAmount,
+                    referralBonusAmount,
+                    adminNotes,
+                },
+            }),
+        }),
+        getInvestmentStats: builder.query({
+            query: () => "admin/investment-stats",
+        }),
     }),
 });
 
@@ -139,4 +219,16 @@ export const {
 
     useRegisterAdminMutation,
     useAdminProfileQuery,
+
+    // Investment Management hooks
+    useGetAllInvestmentsQuery,
+    useGetInvestmentByIdQuery,
+    usePauseInvestmentMutation,
+    useResumeInvestmentMutation,
+    useTerminateInvestmentMutation,
+    useCompleteInvestmentMutation,
+    useUpdateInvestmentProfitMutation,
+    useDeleteInvestmentMutation,
+    useUpdateUserWalletMutation,
+    useGetInvestmentStatsQuery,
 } = adminApiSlice;

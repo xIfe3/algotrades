@@ -2,6 +2,13 @@ import {
     deleteInvestment,
     getAllInvestments,
     getInvestmentById,
+    pauseInvestment,
+    resumeInvestment,
+    terminateInvestment,
+    completeInvestment,
+    updateInvestmentProfit,
+    updateUserWallet,
+    getInvestmentStats,
 } from "../controllers/admin.investment.controller";
 import {
     getAllUsers,
@@ -11,7 +18,7 @@ import {
     getAllUserWallets,
     suspendUserAccount,
     activateUserAccount,
-    getUserSuspensionStatus
+    getUserSuspensionStatus,
 } from "../controllers/admin.controller";
 
 import {
@@ -72,5 +79,12 @@ router.get("/total-withdrawal", getTotalWithdrawal);
 router.get("/get-all-investment", getAllInvestments);
 router.get("/investments/:id", getInvestmentById);
 router.delete("/investments/:id", deleteInvestment);
+router.put("/investments/:id/pause", pauseInvestment);
+router.put("/investments/:id/resume", resumeInvestment);
+router.put("/investments/:id/terminate", terminateInvestment);
+router.put("/investments/:id/complete", completeInvestment);
+router.put("/investments/:id/update-profit", updateInvestmentProfit);
+router.put("/users/:userId/update-wallet", updateUserWallet);
+router.get("/investment-stats", getInvestmentStats);
 
 export default router;

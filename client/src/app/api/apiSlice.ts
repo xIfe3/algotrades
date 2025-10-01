@@ -46,7 +46,14 @@ const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
 // Base API setup
 const baseApi = createApi({
     baseQuery: baseQueryWithReauth,
-    tagTypes: ["User", "Deposit", "Withdrawal", "Plan", "Profile"], // Define your tags here
+    tagTypes: [
+        "User",
+        "Deposit",
+        "Withdrawal",
+        "Plan",
+        "Profile",
+        "Investment",
+    ], // Define your tags here
     endpoints: () => ({}),
 });
 
