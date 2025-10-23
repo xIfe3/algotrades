@@ -270,11 +270,10 @@ const InvestmentManagementTable: React.FC<InvestmentManagementTableProps> = ({
                             <div>
                                 <Label>User</Label>
                                 <p className="font-medium">
-                                    {selectedInvestment.user.fullName ||
-                                        selectedInvestment.user.username}
+                                    {selectedInvestment?.user?.fullName}
                                 </p>
                                 <p className="text-sm text-gray-500">
-                                    {selectedInvestment.user.email}
+                                    {selectedInvestment?.user?.email}
                                 </p>
                             </div>
                             <div>
@@ -338,8 +337,7 @@ const InvestmentManagementTable: React.FC<InvestmentManagementTableProps> = ({
                             Are you sure you want to {modalType} this investment
                             for{" "}
                             <strong>
-                                {selectedInvestment.user.fullName ||
-                                    selectedInvestment.user.username}
+                                {selectedInvestment?.user?.fullName}
                             </strong>
                             ?
                         </p>
@@ -364,8 +362,7 @@ const InvestmentManagementTable: React.FC<InvestmentManagementTableProps> = ({
                             Are you sure you want to terminate this investment
                             for{" "}
                             <strong>
-                                {selectedInvestment.user.fullName ||
-                                    selectedInvestment.user.username}
+                                {selectedInvestment?.user?.fullName}
                             </strong>
                             ?
                         </p>
@@ -401,8 +398,7 @@ const InvestmentManagementTable: React.FC<InvestmentManagementTableProps> = ({
                         <p>
                             Complete this investment for{" "}
                             <strong>
-                                {selectedInvestment.user.fullName ||
-                                    selectedInvestment.user.username}
+                                {selectedInvestment?.user?.fullName}
                             </strong>
                             ?
                         </p>
@@ -441,8 +437,7 @@ const InvestmentManagementTable: React.FC<InvestmentManagementTableProps> = ({
                         <p>
                             Add profit to investment for{" "}
                             <strong>
-                                {selectedInvestment.user.fullName ||
-                                    selectedInvestment.user.username}
+                                {selectedInvestment?.user?.fullName}
                             </strong>
                         </p>
                         <div>
@@ -503,11 +498,10 @@ const InvestmentManagementTable: React.FC<InvestmentManagementTableProps> = ({
                                 <Table.Cell>
                                     <div>
                                         <div className="font-medium text-gray-900 dark:text-white">
-                                            {investment.user.fullName ||
-                                                investment.user.username}
+                                            {investment?.user?.fullName}
                                         </div>
                                         <div className="text-sm text-gray-500">
-                                            @{investment.user.username}
+                                            @{investment?.user?.username}
                                         </div>
                                     </div>
                                 </Table.Cell>

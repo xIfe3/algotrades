@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import AdminLayout from "../layout/AdminLayout.tsx";
+import Dashboard from "../features/admin/pages/Dashboard.tsx";
 import Users from "../features/admin/pages/Users.tsx";
 import AllDeposits from "../features/admin/pages/Deposits/AllDeposits.tsx";
 import PendingDeposits from "../features/admin/pages/Deposits/PendingDeposits.tsx";
@@ -18,7 +19,8 @@ function AdminRoutes() {
     return (
         <Routes>
             <Route element={<AdminLayout />}>
-                <Route path="" element={<Users />} />
+                <Route path="" element={<Dashboard />} />
+                <Route path="/users" element={<Users />} />
                 <Route path="/wallets" element={<AllUserWallets />} />
                 <Route path="/deposits/all" element={<AllDeposits />} />
                 <Route

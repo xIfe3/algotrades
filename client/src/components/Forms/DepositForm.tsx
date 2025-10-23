@@ -144,161 +144,170 @@ const DepositForm = () => {
     const selectedCrypto = formState.cryptocurrency;
 
     return (
-        <form onSubmit={handleOnSubmit} className="w-full md:w-1/2">
-            <FormControl fullWidth margin="normal">
-                <FormSelect
-                    label="plan"
-                    title="Select Plan"
-                    value={formState.plan}
-                    handleOnChange={handleOnChange}
-                    menuItems={plansData}
-                />
-            </FormControl>
-            <FormControl fullWidth margin="normal">
-                <FormSelect
-                    label="cryptocurrency"
-                    title="Select Cryptocurrency"
-                    value={formState.cryptocurrency}
-                    handleOnChange={handleOnChange}
-                    menuItems={[
-                        { value: "BTC", title: "Bitcoin (BTC)" },
-                        { value: "USDT", title: "Tether (USDT)" },
-                    ]}
-                />
-            </FormControl>
-            <FormControl fullWidth margin="normal">
-                <FormSelect
-                    label="currency"
-                    title="Select Currency"
-                    value={formState.currency}
-                    handleOnChange={handleOnChange}
-                    menuItems={[{ value: "USD", title: "USD" }]}
-                />
-            </FormControl>
+        <div className="w-full space-y-6">
+            <form onSubmit={handleOnSubmit} className="w-full space-y-4">
+                <FormControl fullWidth margin="normal">
+                    <FormSelect
+                        label="plan"
+                        title="Select Plan"
+                        value={formState.plan}
+                        handleOnChange={handleOnChange}
+                        menuItems={plansData}
+                    />
+                </FormControl>
+                <FormControl fullWidth margin="normal">
+                    <FormSelect
+                        label="cryptocurrency"
+                        title="Select Cryptocurrency"
+                        value={formState.cryptocurrency}
+                        handleOnChange={handleOnChange}
+                        menuItems={[
+                            { value: "BTC", title: "Bitcoin (BTC)" },
+                            { value: "USDT", title: "Tether (USDT)" },
+                        ]}
+                    />
+                </FormControl>
+                <FormControl fullWidth margin="normal">
+                    <FormSelect
+                        label="currency"
+                        title="Select Currency"
+                        value={formState.currency}
+                        handleOnChange={handleOnChange}
+                        menuItems={[{ value: "USD", title: "USD" }]}
+                    />
+                </FormControl>
 
-            <FormControl fullWidth margin="normal">
-                <FormInput
-                    id="amount"
-                    label="Amount"
-                    name="amount"
-                    value={`$${formatAmount(formState.amount)}`}
-                    onChange={handleOnChange}
-                />
-            </FormControl>
+                <FormControl fullWidth margin="normal">
+                    <FormInput
+                        id="amount"
+                        label="Amount"
+                        name="amount"
+                        value={`$${formatAmount(formState.amount)}`}
+                        onChange={handleOnChange}
+                    />
+                </FormControl>
 
-            <Button
-                type="submit"
-                variant="contained"
-                sx={{
-                    backgroundColor: "#2D6A4F",
-                    fontWeight: "bold",
-                    padding: "8px 25px",
-                    fontSize: "16px",
-                    marginTop: "20px",
-                }}
-                disabled={isDepositLoading}
-            >
-                Submit
-            </Button>
-
-            {/* Dialog for the selected cryptocurrency details */}
-            <Dialog
-                open={openDialog}
-                onClose={handleDialogClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-                fullWidth
-                maxWidth="sm"
-            >
-                <DialogTitle
-                    id="alert-dialog-title"
-                    sx={{ textAlign: "center", fontWeight: "bold" }}
+                <Button
+                    type="submit"
+                    variant="contained"
+                    sx={{
+                        backgroundColor: "#2D6A4F",
+                        fontWeight: "bold",
+                        padding: "8px 25px",
+                        fontSize: "16px",
+                        marginTop: "20px",
+                    }}
+                    disabled={isDepositLoading}
                 >
-                    Complete Your {selectedCrypto} Deposit
-                </DialogTitle>
+                    Submit
+                </Button>
 
-                <DialogContent>
-                    <DialogContentText
-                        id="alert-dialog-description"
-                        sx={{ textAlign: "center", marginBottom: 3 }}
+                {/* Dialog for the selected cryptocurrency details */}
+                <Dialog
+                    open={openDialog}
+                    onClose={handleDialogClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                    fullWidth
+                    maxWidth="sm"
+                >
+                    <DialogTitle
+                        id="alert-dialog-title"
+                        sx={{ textAlign: "center", fontWeight: "bold" }}
                     >
-                        Please send the specified amount to the following
-                        address:
-                    </DialogContentText>
+                        Complete Your {selectedCrypto} Deposit
+                    </DialogTitle>
 
-                    {selectedCrypto && depositDetails[selectedCrypto] && (
-                        <Box
-                            sx={{
-                                border: "1px solid #e0e0e0",
-                                borderRadius: 2,
-                                padding: 2,
-                                boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-                                textAlign: "center",
-                                marginBottom: 2,
-                            }}
+                    <DialogContent>
+                        <DialogContentText
+                            id="alert-dialog-description"
+                            sx={{ textAlign: "center", marginBottom: 3 }}
                         >
-                            <Typography variant="subtitle1" fontWeight="bold">
-                                {selectedCrypto} Address:
-                            </Typography>
-                            <Typography
-                                variant="body2"
+                            Please send the specified amount to the following
+                            address:
+                        </DialogContentText>
+
+                        {selectedCrypto && depositDetails[selectedCrypto] && (
+                            <Box
                                 sx={{
-                                    wordBreak: "break-word",
+                                    border: "1px solid #e0e0e0",
+                                    borderRadius: 2,
+                                    padding: 2,
+                                    boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+                                    textAlign: "center",
                                     marginBottom: 2,
                                 }}
                             >
-                                {depositDetails[selectedCrypto].address}
-                            </Typography>
-                            <img
-                                src={depositDetails[selectedCrypto].qrCodeUrl}
-                                alt={`${selectedCrypto} QR Code`}
-                                style={{ width: "100%", height: "auto" }}
-                            />
-                        </Box>
-                    )}
-                </DialogContent>
-
-                <DialogActions sx={{ justifyContent: "center", padding: 3 }}>
-                    <Button
-                        onClick={handleDialogClose}
-                        sx={{
-                            fontWeight: "bold",
-                            color: "#6c757d",
-                            marginRight: 2,
-                        }}
-                    >
-                        Cancel
-                    </Button>
-                    <Button
-                        onClick={handleConfirmDeposit}
-                        variant="contained"
-                        sx={{
-                            backgroundColor: "#28a745",
-                            fontWeight: "bold",
-                            padding: "10px 20px",
-                            "&:hover": { backgroundColor: "#218838" },
-                        }}
-                        disabled={isConfirmLoading} // Disable button while loading
-                    >
-                        {isConfirmLoading ? (
-                            <CircularProgress size={20} color="inherit" />
-                        ) : (
-                            "Confirm Deposit"
+                                <Typography
+                                    variant="subtitle1"
+                                    fontWeight="bold"
+                                >
+                                    {selectedCrypto} Address:
+                                </Typography>
+                                <Typography
+                                    variant="body2"
+                                    sx={{
+                                        wordBreak: "break-word",
+                                        marginBottom: 2,
+                                    }}
+                                >
+                                    {depositDetails[selectedCrypto].address}
+                                </Typography>
+                                <img
+                                    src={
+                                        depositDetails[selectedCrypto].qrCodeUrl
+                                    }
+                                    alt={`${selectedCrypto} QR Code`}
+                                    style={{ width: "100%", height: "auto" }}
+                                />
+                            </Box>
                         )}
-                    </Button>
-                </DialogActions>
-            </Dialog>
+                    </DialogContent>
 
-            <AlertMessage
-                errorMessage={errorMessage}
-                successMessage={successMessage}
-                statusType={statusType}
-                showAlert={showAlert}
-                setShowAlert={setShowAlert}
-            />
+                    <DialogActions
+                        sx={{ justifyContent: "center", padding: 3 }}
+                    >
+                        <Button
+                            onClick={handleDialogClose}
+                            sx={{
+                                fontWeight: "bold",
+                                color: "#6c757d",
+                                marginRight: 2,
+                            }}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            onClick={handleConfirmDeposit}
+                            variant="contained"
+                            sx={{
+                                backgroundColor: "#28a745",
+                                fontWeight: "bold",
+                                padding: "10px 20px",
+                                "&:hover": { backgroundColor: "#218838" },
+                            }}
+                            disabled={isConfirmLoading} // Disable button while loading
+                        >
+                            {isConfirmLoading ? (
+                                <CircularProgress size={20} color="inherit" />
+                            ) : (
+                                "Confirm Deposit"
+                            )}
+                        </Button>
+                    </DialogActions>
+                </Dialog>
 
-            <LoadingBackdrop open={isConfirmLoading} />
-        </form>
+                <AlertMessage
+                    errorMessage={errorMessage}
+                    successMessage={successMessage}
+                    statusType={statusType}
+                    showAlert={showAlert}
+                    setShowAlert={setShowAlert}
+                />
+
+                <LoadingBackdrop open={isConfirmLoading} />
+            </form>
+        </div>
     );
 };
 

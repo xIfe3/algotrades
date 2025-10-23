@@ -33,36 +33,51 @@ const AdminLayout = () => {
     const profileData = data?.user || {};
 
     return (
-        <div className="flex">
+        <div className="flex min-h-screen bg-gray-50">
             {/* Sidebar */}
             <AdminSidebar
                 isOpen={isSidebarOpen}
                 toggleSidebar={toggleSidebar}
             />
 
-            <div className="flex-1 flex flex-col w-[75%] sm:ml-[25%]">
+            <div className="flex-1 flex flex-col w-[75%] sm:ml-[280px] transition-all duration-300">
                 {/* Navbar */}
                 <NavBar
                     toggleSidebar={toggleSidebar}
                     profileData={profileData}
                 />
 
-                <div className="px-4 py-3 bg-lightGrey">
+                <div className="flex-1 px-6 py-8 bg-gray-50 min-h-screen">
+                    {/* Header Section */}
+                    <div className="mb-8">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                            <div>
+                                <h1 className="text-2xl font-bold text-gray-900 mb-2">
+                                    Admin Dashboard
+                                </h1>
+                                <p className="text-gray-600">
+                                    Manage your platform efficiently
+                                </p>
+                            </div>
+                            <button
+                                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-6 rounded-lg font-medium shadow-lg transition-all duration-200 transform active:scale-95"
+                                onClick={() => setIsDrawerOpen(true)}
+                            >
+                                Update User Balance / Profit
+                            </button>
+                        </div>
+                    </div>
+
                     {/* Drawer component */}
                     <UpdateProfitDrawer
                         isOpen={isDrawerOpen}
                         setIsOpen={setIsDrawerOpen}
                     />
 
-                    {/* Button to open the drawer */}
-                    <button
-                        className=" text-white py-2 px-4 rounded block md:ml-auto ml-6 md:mr-6 bg-primary my-2"
-                        onClick={() => setIsDrawerOpen(true)}
-                    >
-                        Update User Balance / Profit
-                    </button>
-
-                    <Outlet />
+                    {/* Main Content */}
+                    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                        <Outlet />
+                    </div>
                 </div>
             </div>
         </div>

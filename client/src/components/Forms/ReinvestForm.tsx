@@ -98,62 +98,64 @@ const ReinvestForm = () => {
     if (isWalletLoading) return <p>Loading....</p>;
 
     return (
-        <form
-            onSubmit={handleOnSubmit}
-            className="w-full md:w-1/2 bg-white shadow-sm p-8 rounded-md"
-        >
-            <p className="text-sm mb-2">
-                Reinvestments are quick deposits made from your account balance
-                to renew your contract.
-            </p>
-            <FormControl fullWidth margin="normal">
-                <FormSelect
-                    label="source"
-                    title="Source"
-                    value={formState.source}
-                    handleOnChange={handleOnChange}
-                    menuItems={[
-                        {
-                            value: "balance",
-                            title: `Reinvest from my balance ($${formatAmount(wallet?.balance)})`,
-                        },
-                    ]}
-                />
-            </FormControl>
-            <FormControl fullWidth margin="normal">
-                <FormSelect
-                    label="plan"
-                    title="Select Plan"
-                    value={formState.plan}
-                    handleOnChange={handleOnChange}
-                    menuItems={plansData}
-                />
-            </FormControl>
+        <div className="w-full space-y-6">
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+                <p className="text-sm text-green-800 font-medium">
+                    ℹ️ Reinvestments are quick deposits made from your account
+                    balance to renew your contract.
+                </p>
+            </div>
 
-            <FormControl fullWidth margin="normal">
-                <FormInput
-                    id="amount"
-                    label="Amount"
-                    name="amount"
-                    value={`$${formatAmount(formState.amount)}`}
-                    onChange={handleOnChange}
-                />
-            </FormControl>
+            <form onSubmit={handleOnSubmit} className="w-full space-y-4">
+                <FormControl fullWidth margin="normal">
+                    <FormSelect
+                        label="source"
+                        title="Source"
+                        value={formState.source}
+                        handleOnChange={handleOnChange}
+                        menuItems={[
+                            {
+                                value: "balance",
+                                title: `Reinvest from my balance ($${formatAmount(wallet?.balance)})`,
+                            },
+                        ]}
+                    />
+                </FormControl>
+                <FormControl fullWidth margin="normal">
+                    <FormSelect
+                        label="plan"
+                        title="Select Plan"
+                        value={formState.plan}
+                        handleOnChange={handleOnChange}
+                        menuItems={plansData}
+                    />
+                </FormControl>
 
-            <Button
-                type="submit"
-                variant="contained"
-                sx={{
-                    backgroundColor: "#2D6A4F",
-                    fontWeight: "bold",
-                    padding: "8px 25px",
-                    fontSize: "16px",
-                    marginTop: "10px",
-                }}
-                disabled={isReinvestLoading}
-            >
-                Reinvest
-            </Button>
+                <FormControl fullWidth margin="normal">
+                    <FormInput
+                        id="amount"
+                        label="Amount"
+                        name="amount"
+                        value={`$${formatAmount(formState.amount)}`}
+                        onChange={handleOnChange}
+                    />
+                </FormControl>
+
+                <Button
+                    type="submit"
+                    variant="contained"
+                    sx={{
+                        backgroundColor: "#2D6A4F",
+                        fontWeight: "bold",
+                        padding: "12px 32px",
+                        fontSize: "16px",
+                        width: "100%",
+                    }}
+                    disabled={isReinvestLoading}
+                >
+                    Reinvest Now
+                </Button>
+            </form>
 
             <AlertMessage
                 errorMessage={errorMessage}
@@ -163,7 +165,7 @@ const ReinvestForm = () => {
                 setShowAlert={setShowAlert}
             />
             <LoadingBackdrop open={isReinvestLoading} />
-        </form>
+        </div>
     );
 };
 

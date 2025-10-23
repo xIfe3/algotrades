@@ -2,7 +2,6 @@ import { PiHandDepositFill } from "react-icons/pi";
 import { MdOutlinePending } from "react-icons/md";
 import { PiHandWithdrawFill } from "react-icons/pi";
 import { FaUsers } from "react-icons/fa6";
-import { Divider } from "@mui/material";
 import StatCard from "./StatCard";
 import {
     useGetTotalUsersQuery,
@@ -22,52 +21,54 @@ const StatsSection = () => {
         useGetTotalWithdrawalQuery({});
     const { data: pendingDeposits, isLoading: pendingLoading } =
         useGetAllPendingDepositsQuery({});
-    console.log(pendingDeposits);
 
     // Handling loading states
     if (usersLoading || depositLoading || withdrawalLoading || pendingLoading) {
-        return <p>Loading stats...</p>;
+        return (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {[...Array(4)].map((_, index) => (
+                    <div
+                        key={index}
+                        className="bg-white rounded-xl p-6 border border-gray-200 animate-pulse"
+                    >
+                        <div className="flex items-center justify-between">
+                            <div className="space-y-2">
+                                <div className="h-4 bg-gray-200 rounded w-16"></div>
+                                <div className="h-8 bg-gray-200 rounded w-20"></div>
+                            </div>
+                            <div className="w-12 h-12 bg-gray-200 rounded-xl"></div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        );
     }
 
     return (
-        <div className="flex flex-wrap flex-col sm:flex-row md:space-x-5 space-y-4 md:space-y-0 rounded-2xl bg-white md:justify-between p-8 md:items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <StatCard
                 icon={<FaUsers />}
-                title="Users"
-                value={totalUsers.totalUsers || 0}
+                title="Total Users"
+                value={totalUsers?.totalUsers || 0}
+                color="blue"
             />
-            <Divider
-                orientation="vertical"
-                flexItem
-                className="divider sm:block hidden"
-            />
-            <Divider flexItem className="sm:hidden block" />
             <StatCard
                 icon={<PiHandDepositFill />}
-                title="Deposits ($)"
-                value={`$${formatAmount(totalDeposit.totalAmount) || 0}`}
+                title="Total Deposits"
+                value={`$${formatAmount(totalDeposit?.totalAmount || 0)}`}
+                color="green"
             />
-            <Divider
-                orientation="vertical"
-                flexItem
-                className="divider sm:block hidden"
-            />
-            <Divider flexItem className="sm:hidden block" />
             <StatCard
                 icon={<PiHandWithdrawFill />}
-                title="Withdrawals ($)"
-                value={`$${formatAmount(totalWithdrawal.totalAmount) || 0}`}
+                title="Total Withdrawals"
+                value={`$${formatAmount(totalWithdrawal?.totalAmount || 0)}`}
+                color="purple"
             />
-            <Divider
-                orientation="vertical"
-                flexItem
-                className="divider sm:block hidden"
-            />
-            <Divider flexItem className="sm:hidden block" />
             <StatCard
                 icon={<MdOutlinePending />}
-                title="Pending"
-                value={`${formatAmount(pendingDeposits.deposits.length) || 0}`}
+                title="Pending Deposits"
+                value={pendingDeposits?.deposits?.length || 0}
+                color="orange"
             />
         </div>
     );

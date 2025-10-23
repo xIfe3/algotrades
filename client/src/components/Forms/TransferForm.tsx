@@ -48,48 +48,49 @@ const TransferForm = () => {
     };
 
     return (
-        <form
-            onSubmit={handleOnSubmit}
-            className="w-full md:w-1/2 bg-white shadow-sm p-8 rounded-md"
-        >
-            <p className="text-sm mb-2">
-                You can only transfer funds from your balance.
-            </p>
+        <div className="w-full space-y-6">
+            <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
+                <p className="text-sm text-amber-800 font-medium">
+                    ℹ️ You can only transfer funds from your balance.
+                </p>
+            </div>
 
-            <FormControl fullWidth margin="normal">
-                <FormInput
-                    id="receiverUsername"
-                    label="Destination Account Username"
-                    name="receiverUsername"
-                    value={formState.receiverUsername}
-                    onChange={handleOnChange}
-                />
-            </FormControl>
+            <form onSubmit={handleOnSubmit} className="w-full space-y-4">
+                <FormControl fullWidth margin="normal">
+                    <FormInput
+                        id="receiverUsername"
+                        label="Destination Account Username"
+                        name="receiverUsername"
+                        value={formState.receiverUsername}
+                        onChange={handleOnChange}
+                    />
+                </FormControl>
 
-            <FormControl fullWidth>
-                <FormInput
-                    id="amount"
-                    label="Preferred Amount in USD"
-                    name="amount"
-                    value={formState.amount}
-                    onChange={handleOnChange}
-                />
-            </FormControl>
+                <FormControl fullWidth>
+                    <FormInput
+                        id="amount"
+                        label="Preferred Amount in USD"
+                        name="amount"
+                        value={formState.amount}
+                        onChange={handleOnChange}
+                    />
+                </FormControl>
 
-            <Button
-                type="submit"
-                variant="contained"
-                sx={{
-                    backgroundColor: "#2D6A4F",
-                    fontWeight: "bold",
-                    padding: "8px 25px",
-                    fontSize: "16px",
-                    marginTop: "10px",
-                }}
-                disabled={isLoading}
-            >
-                Send
-            </Button>
+                <Button
+                    type="submit"
+                    variant="contained"
+                    sx={{
+                        backgroundColor: "#2D6A4F",
+                        fontWeight: "bold",
+                        padding: "12px 32px",
+                        fontSize: "16px",
+                        width: "100%",
+                    }}
+                    disabled={isLoading}
+                >
+                    Send Transfer
+                </Button>
+            </form>
 
             <AlertMessage
                 errorMessage={errorMessage}
@@ -99,7 +100,7 @@ const TransferForm = () => {
                 setShowAlert={setShowAlert}
             />
             <LoadingBackdrop open={isLoading} />
-        </form>
+        </div>
     );
 };
 

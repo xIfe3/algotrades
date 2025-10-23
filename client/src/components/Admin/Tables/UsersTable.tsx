@@ -61,83 +61,71 @@ export function UserTable({ users }: { users: any[] }) {
     };
 
     return (
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
-            <div className="px-4 py-5 sm:px-6 border-b border-gray-200 dark:border-gray-700">
-                <h2 className="text-xl font-bold text-gray-800 dark:text-white">
-                    User Management
-                </h2>
-                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                    {users.length} {users.length === 1 ? "user" : "users"} found
-                </p>
-            </div>
-
+        <div className="overflow-hidden">
             {/* Desktop Table */}
             <div className="hidden md:block overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                    <thead className="bg-gray-50 dark:bg-gray-800">
+                <table className="min-w-full divide-y divide-gray-200">
+                    <thead className="bg-gray-50">
                         <tr>
                             <th
                                 scope="col"
-                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
+                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                             >
                                 User
                             </th>
                             <th
                                 scope="col"
-                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
+                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                             >
                                 Contact
                             </th>
                             <th
                                 scope="col"
-                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
+                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                             >
                                 Status
                             </th>
                             <th
                                 scope="col"
-                                className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
+                                className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
                             >
                                 Actions
                             </th>
                         </tr>
                     </thead>
-                    <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-                        {users.map((user) => (
-                            <tr
-                                key={user._id}
-                                className="hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors"
-                            >
+                    <tbody className="bg-white divide-y divide-gray-200">
+                        {users?.map((user) => (
+                            <tr key={user._id} className="transition-colors">
                                 <td className="px-6 py-4">
                                     <div className="flex items-center">
-                                        <div className="flex-shrink-0 h-10 w-10 rounded-full bg-gradient-to-r from-blue-400 to-indigo-500 flex items-center justify-center">
-                                            <FiUser className="text-white" />
+                                        <div className="flex-shrink-0 h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
+                                            <FiUser className="text-blue-600" />
                                         </div>
                                         <div className="ml-4">
-                                            <div className="text-sm font-medium text-gray-900 dark:text-white">
+                                            <div className="text-sm font-medium text-gray-900">
                                                 {user.fullName}
                                             </div>
-                                            <div className="text-sm text-gray-500 dark:text-gray-400">
+                                            <div className="text-sm text-gray-500">
                                                 @{user.username}
                                             </div>
                                         </div>
                                     </div>
                                 </td>
                                 <td className="px-6 py-4">
-                                    <div className="text-sm text-gray-900 dark:text-white">
+                                    <div className="text-sm text-gray-900">
                                         {user.email}
                                     </div>
-                                    <div className="text-sm text-gray-500 dark:text-gray-400">
+                                    <div className="text-sm text-gray-500">
                                         {user.phoneNumber}
                                     </div>
                                 </td>
                                 <td className="px-6 py-4">
                                     {user.isSuspended ? (
-                                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300">
+                                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
                                             Suspended
                                         </span>
                                     ) : (
-                                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300">
+                                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
                                             Active
                                         </span>
                                     )}
@@ -152,11 +140,11 @@ export function UserTable({ users }: { users: any[] }) {
                                                         user._id,
                                                     )
                                                 }
-                                                className="flex items-center px-3 py-2 text-sm text-white bg-red-500 hover:bg-red-600 rounded-lg transition-colors"
+                                                className="inline-flex items-center px-3 py-1.5 text-xs font-medium text-red-700 bg-red-50 border border-red-200 rounded-md transition-colors active:bg-red-100"
                                                 title="Suspend user"
                                             >
                                                 <FiLock className="mr-1" />
-                                                <span>Suspend</span>
+                                                Suspend
                                             </button>
                                         ) : (
                                             <button
@@ -166,22 +154,22 @@ export function UserTable({ users }: { users: any[] }) {
                                                         user._id,
                                                     )
                                                 }
-                                                className="flex items-center px-3 py-2 text-sm text-white bg-green-500 hover:bg-green-600 rounded-lg transition-colors"
+                                                className="inline-flex items-center px-3 py-1.5 text-xs font-medium text-green-700 bg-green-50 border border-green-200 rounded-md transition-colors active:bg-green-100"
                                                 title="Activate user"
                                             >
                                                 <FiUnlock className="mr-1" />
-                                                <span>Activate</span>
+                                                Activate
                                             </button>
                                         )}
                                         <button
                                             onClick={() =>
                                                 handleAction("delete", user._id)
                                             }
-                                            className="flex items-center px-3 py-2 text-sm text-white bg-gray-500 hover:bg-gray-600 rounded-lg transition-colors"
+                                            className="inline-flex items-center px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-50 border border-gray-200 rounded-md transition-colors active:bg-gray-100"
                                             title="Delete user"
                                         >
                                             <FiTrash2 className="mr-1" />
-                                            <span>Delete</span>
+                                            Delete
                                         </button>
                                     </div>
                                 </td>
@@ -193,53 +181,50 @@ export function UserTable({ users }: { users: any[] }) {
 
             {/* Mobile Cards */}
             <div className="md:hidden">
-                <div className="divide-y divide-gray-200 dark:divide-gray-700">
-                    {users.length > 0 ? (
+                <div className="divide-y divide-gray-200">
+                    {users?.length > 0 ? (
                         users.map((user) => (
-                            <div
-                                key={user._id}
-                                className="p-4 hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors"
-                            >
+                            <div key={user._id} className="p-4">
                                 <div className="flex items-center">
-                                    <div className="flex-shrink-0 h-12 w-12 rounded-full bg-gradient-to-r from-blue-400 to-indigo-500 flex items-center justify-center">
-                                        <FiUser className="text-white text-xl" />
+                                    <div className="flex-shrink-0 h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center">
+                                        <FiUser className="text-blue-600 text-lg" />
                                     </div>
                                     <div className="ml-4 flex-1">
-                                        <div className="text-base font-medium text-gray-900 dark:text-white">
+                                        <div className="text-base font-medium text-gray-900">
                                             {user.fullName}
                                         </div>
-                                        <div className="text-sm text-gray-500 dark:text-gray-400">
+                                        <div className="text-sm text-gray-500">
                                             @{user.username}
                                         </div>
 
-                                        <div className="mt-2 flex flex-wrap gap-2">
-                                            <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                                                <FiMail className="mr-2 text-indigo-500" />
-                                                <span className="truncate max-w-[120px]">
+                                        <div className="mt-2 space-y-1">
+                                            <div className="flex items-center text-sm text-gray-500">
+                                                <FiMail className="mr-2 text-blue-500" />
+                                                <span className="truncate">
                                                     {user.email}
                                                 </span>
                                             </div>
-                                            <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                                                <FiPhone className="mr-2 text-indigo-500" />
+                                            <div className="flex items-center text-sm text-gray-500">
+                                                <FiPhone className="mr-2 text-blue-500" />
                                                 <span>{user.phoneNumber}</span>
                                             </div>
                                         </div>
 
-                                        <div className="mt-3 flex items-center">
+                                        <div className="mt-3 flex items-center justify-between">
                                             {user.isSuspended ? (
-                                                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300">
-                                                    <FiLock className="mr-1" />{" "}
+                                                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                                    <FiLock className="mr-1" />
                                                     Suspended
                                                 </span>
                                             ) : (
-                                                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300">
-                                                    <FiUserCheck className="mr-1" />{" "}
+                                                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                    <FiUserCheck className="mr-1" />
                                                     Active
                                                 </span>
                                             )}
                                         </div>
 
-                                        <div className="mt-4 flex space-x-3">
+                                        <div className="mt-4 flex space-x-2">
                                             {!user.isSuspended ? (
                                                 <button
                                                     onClick={() =>
@@ -248,10 +233,10 @@ export function UserTable({ users }: { users: any[] }) {
                                                             user._id,
                                                         )
                                                     }
-                                                    className="flex items-center px-3 py-2 text-sm text-white bg-red-500 hover:bg-red-600 rounded-lg transition-colors flex-1 justify-center"
+                                                    className="flex items-center px-3 py-1.5 text-xs font-medium text-red-700 bg-red-50 border border-red-200 rounded-md flex-1 justify-center"
                                                 >
                                                     <FiLock className="mr-1" />
-                                                    <span>Suspend</span>
+                                                    Suspend
                                                 </button>
                                             ) : (
                                                 <button
@@ -261,10 +246,10 @@ export function UserTable({ users }: { users: any[] }) {
                                                             user._id,
                                                         )
                                                     }
-                                                    className="flex items-center px-3 py-2 text-sm text-white bg-green-500 hover:bg-green-600 rounded-lg transition-colors flex-1 justify-center"
+                                                    className="flex items-center px-3 py-1.5 text-xs font-medium text-green-700 bg-green-50 border border-green-200 rounded-md flex-1 justify-center"
                                                 >
                                                     <FiUnlock className="mr-1" />
-                                                    <span>Activate</span>
+                                                    Activate
                                                 </button>
                                             )}
                                             <button
@@ -274,10 +259,10 @@ export function UserTable({ users }: { users: any[] }) {
                                                         user._id,
                                                     )
                                                 }
-                                                className="flex items-center px-3 py-2 text-sm text-white bg-gray-500 hover:bg-gray-600 rounded-lg transition-colors flex-1 justify-center"
+                                                className="flex items-center px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-50 border border-gray-200 rounded-md flex-1 justify-center"
                                             >
                                                 <FiTrash2 className="mr-1" />
-                                                <span>Delete</span>
+                                                Delete
                                             </button>
                                         </div>
                                     </div>
@@ -286,13 +271,13 @@ export function UserTable({ users }: { users: any[] }) {
                         ))
                     ) : (
                         <div className="p-8 text-center">
-                            <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-gray-100 dark:bg-gray-700">
+                            <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-gray-100">
                                 <FiUserX className="h-6 w-6 text-gray-400" />
                             </div>
-                            <h3 className="mt-2 text-sm font-medium text-gray-900 dark:text-white">
+                            <h3 className="mt-2 text-sm font-medium text-gray-900">
                                 No users
                             </h3>
-                            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                            <p className="mt-1 text-sm text-gray-500">
                                 There are currently no users to display.
                             </p>
                         </div>

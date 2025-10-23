@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
 import { useUpdateUserMutation } from "../../features/user/api/userApiSlice";
-import { Button, FormControl, Divider } from "@mui/material";
+import { Button, FormControl } from "@mui/material";
 import AlertMessage from "../common/Snackbar.tsx";
 import { LoadingBackdrop } from "../LoadingBackdrop.tsx";
 import FormInput from "../common/FormInput.tsx";
@@ -59,96 +59,101 @@ const KYCForm = () => {
     };
 
     return (
-        <form
-            onSubmit={handleOnSubmit}
-            className="w-full md:w-1/2 bg-white shadow-sm p-8 rounded-md"
-        >
-            {/* Full Name Input */}
-            <FormControl fullWidth>
-                <FormInput
-                    id="fullName"
-                    label="Full Name"
-                    name="fullName"
-                    value={formState.fullName}
-                    onChange={handleOnChange}
-                />
-            </FormControl>
+        <div className="w-full space-y-6">
+            <form onSubmit={handleOnSubmit} className="w-full">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Left Column */}
+                    <div className="space-y-4">
+                        {/* Full Name Input */}
+                        <FormControl fullWidth>
+                            <FormInput
+                                id="fullName"
+                                label="Full Name"
+                                name="fullName"
+                                value={formState.fullName}
+                                onChange={handleOnChange}
+                            />
+                        </FormControl>
 
-            {/* Username Input */}
-            <FormControl fullWidth>
-                <FormInput
-                    id="username"
-                    label="Username"
-                    name="username"
-                    value={formState.username}
-                    onChange={handleOnChange}
-                />
-            </FormControl>
+                        {/* Username Input */}
+                        <FormControl fullWidth>
+                            <FormInput
+                                id="username"
+                                label="Username"
+                                name="username"
+                                value={formState.username}
+                                onChange={handleOnChange}
+                            />
+                        </FormControl>
 
-            {/* Email Input (Disabled) */}
-            <FormControl fullWidth>
-                <FormInput
-                    id="email"
-                    label="Email Address"
-                    name="email"
-                    type="email"
-                    value={formState.email}
-                    onChange={handleOnChange}
-                />
-            </FormControl>
+                        {/* Email Input (Disabled) */}
+                        <FormControl fullWidth>
+                            <FormInput
+                                id="email"
+                                label="Email Address"
+                                name="email"
+                                type="email"
+                                value={formState.email}
+                                onChange={handleOnChange}
+                            />
+                        </FormControl>
+                    </div>
 
-            {/* Phone Number Input */}
-            <FormControl fullWidth>
-                <FormInput
-                    id="phoneNumber"
-                    label="Phone Number"
-                    name="phoneNumber"
-                    type="tel"
-                    value={formState.phoneNumber}
-                    onChange={handleOnChange}
-                />
-            </FormControl>
+                    {/* Right Column */}
+                    <div className="space-y-4">
+                        {/* Phone Number Input */}
+                        <FormControl fullWidth>
+                            <FormInput
+                                id="phoneNumber"
+                                label="Phone Number"
+                                name="phoneNumber"
+                                type="tel"
+                                value={formState.phoneNumber}
+                                onChange={handleOnChange}
+                            />
+                        </FormControl>
 
-            <Divider sx={{ margin: "10px 0" }}>
-                <span className="font-semibold">CONTACT INFO</span>
-            </Divider>
+                        {/* Passport Number Input */}
+                        <FormControl fullWidth>
+                            <FormInput
+                                id="passportNumber"
+                                label="Passport Number"
+                                name="passportNumber"
+                                value={formState.passportNumber}
+                                onChange={handleOnChange}
+                            />
+                        </FormControl>
 
-            {/* Passport Number Input */}
-            <FormControl fullWidth>
-                <FormInput
-                    id="passportNumber"
-                    label="Passport Number"
-                    name="passportNumber"
-                    value={formState.passportNumber}
-                    onChange={handleOnChange}
-                />
-            </FormControl>
-
-            <FormControl fullWidth>
-                <FormInput
-                    id="contactAddress"
-                    label="Contact Address"
-                    name="contactAddress"
-                    value={formState.contactAddress}
-                    onChange={handleOnChange}
-                />
-            </FormControl>
-
-            {/* Submit Button */}
-            <Button
-                type="submit"
-                variant="contained"
-                sx={{
-                    backgroundColor: "#2D6A4F",
-                    fontWeight: "bold",
-                    padding: "8px 25px",
-                    fontSize: "16px",
-                    marginTop: "20px",
-                }}
-                disabled={isLoading}
-            >
-                Submit KYC
-            </Button>
+                        {/* Contact Address Input */}
+                        <FormControl fullWidth>
+                            <FormInput
+                                id="contactAddress"
+                                label="Contact Address"
+                                name="contactAddress"
+                                value={formState.contactAddress}
+                                onChange={handleOnChange}
+                            />
+                        </FormControl>
+                    </div>
+                </div>{" "}
+                {/* Submit Button */}
+                <div className="mt-8">
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        sx={{
+                            backgroundColor: "#2D6A4F",
+                            fontWeight: "bold",
+                            padding: "12px 32px",
+                            fontSize: "16px",
+                            width: "100%",
+                        }}
+                        disabled={isLoading}
+                    >
+                        Submit KYC Verification
+                    </Button>
+                </div>
+            </form>
 
             {/* Alerts */}
             <AlertMessage
@@ -159,7 +164,7 @@ const KYCForm = () => {
                 setShowAlert={setShowAlert}
             />
             <LoadingBackdrop open={isLoading} />
-        </form>
+        </div>
     );
 };
 

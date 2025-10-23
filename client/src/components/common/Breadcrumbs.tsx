@@ -1,55 +1,27 @@
-import Typography from "@mui/material/Typography";
-import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { Link } from "react-router-dom";
-import HomeIcon from "@mui/icons-material/Home";
+import { FaHome, FaChevronRight } from "react-icons/fa";
 
 export default function Breadcrumb({ dashboardUrl, currentPage }: any) {
     return (
-        <div className="w-full bg-gray-50 p-4 rounded-md shadow-md mb-10">
-            <Breadcrumbs
-                aria-label="breadcrumb"
-                sx={{
-                    width: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    padding: "8px 16px",
-                    backgroundColor: "#f7f9fc",
-                    borderRadius: "8px",
-                }}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+            <nav
+                className="flex items-center space-x-3"
+                aria-label="Breadcrumb"
             >
                 <Link
                     to={dashboardUrl || "/dashboard/me"}
-                    className="flex items-center font-semibold hover:underline"
-                    style={{
-                        color: "#2D6A4F",
-                        textDecoration: "none",
-                        marginRight: "8px",
-                    }}
+                    className="flex items-center space-x-2 text-blue-600 font-medium transition-colors duration-200 active:text-blue-700"
                 >
-                    <HomeIcon
-                        className="text-lg"
-                        style={{ marginRight: "4px", color: "#2D6A4F" }}
-                    />
-                    <Typography
-                        variant="body1"
-                        sx={{ fontWeight: "bold", fontSize: "1rem" }}
-                    >
-                        Dashboard
-                    </Typography>
+                    <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <FaHome className="text-blue-600 text-sm" />
+                    </div>
+                    <span>Dashboard</span>
                 </Link>
-                <Typography
-                    variant="body1"
-                    sx={{
-                        color: "text.primary",
-                        display: "flex",
-                        alignItems: "center",
-                        fontSize: "1rem",
-                        fontWeight: 500,
-                    }}
-                >
-                    {currentPage}
-                </Typography>
-            </Breadcrumbs>
+
+                <FaChevronRight className="text-gray-400 text-sm" />
+
+                <span className="text-gray-700 font-medium">{currentPage}</span>
+            </nav>
         </div>
     );
 }
