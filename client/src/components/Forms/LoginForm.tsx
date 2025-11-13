@@ -87,7 +87,7 @@ const LoginForm = () => {
     }, [formState.emailOrUsername, formState.password]);
 
     return (
-        <form onSubmit={handleOnSubmit}>
+        <form onSubmit={handleOnSubmit} className="space-y-4">
             <FormInput
                 id="emailOrUsername"
                 label="Email or Username"
@@ -110,12 +110,18 @@ const LoginForm = () => {
                 onMouseUpPassword={handleMouseUpPassword}
             />
 
-            <div className="flex md:flex-row justify-between mb-2">
-                <FormControlLabel control={<Checkbox />} label="Remember Me" />
+            <div className="flex items-center justify-between">
+                <FormControlLabel
+                    control={<Checkbox size="small" />}
+                    label={
+                        <span className="text-sm text-gray-600">
+                            Remember Me
+                        </span>
+                    }
+                />
                 <Link
                     to="/auth/forgot-password"
-                    style={{ color: "#3f51b5", textDecoration: "none" }}
-                    className="md:block hidden"
+                    className="text-sm text-blue-600 hover:text-blue-700 font-medium"
                 >
                     Forgot Password?
                 </Link>
@@ -126,23 +132,20 @@ const LoginForm = () => {
                 variant="contained"
                 fullWidth
                 sx={{
-                    backgroundColor: "#264653",
-                    fontWeight: "bold",
-                    padding: "10px 0",
+                    backgroundColor: "#2563eb",
+                    fontWeight: "600",
+                    padding: "12px 0",
                     fontSize: "16px",
+                    textTransform: "none",
+                    borderRadius: "8px",
+                    "&:hover": {
+                        backgroundColor: "#1d4ed8",
+                    },
                 }}
                 disabled={isLoading}
             >
-                Login
+                {isLoading ? "Signing in..." : "Sign In"}
             </Button>
-
-            <Link
-                to="/auth/forgot-password"
-                style={{ color: "#3f51b5", textDecoration: "none" }}
-                className="md:hidden block my-2"
-            >
-                Forgot Password?
-            </Link>
 
             <AlertMessage
                 errorMessage={errorMessage}

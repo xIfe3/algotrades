@@ -2,6 +2,7 @@
 import userModel from "./models/user.model";
 import planModel from "./models/plan.model";
 import walletModel from "./models/wallet.model";
+import investmentModel from "./models/investment.model";
 import Agenda from "agenda";
 
 const MONGO_DB_URI = process.env.LOCAL_DB_URI || "";
@@ -14,18 +15,105 @@ const calculateProfit = async () => {
         });
 
         for (const user of users) {
-            const { planId, simulatedDays = 0 } = user.currentPlan;
+            const { planId, simulatedDays = 0, endDate } = user.currentPlan;
             const plan = await planModel.findById(planId);
 
             // Ensure the plan exists
-            if (!plan) continue;
+            if (!plan) {
+                console.log(
+                    `Plan not found for user ${user.username}, removing currentPlan`
+                );
+                user.currentPlan = null;
+                await user.save();
+                continue;
+            }
+
+            // Check if the investment has already exceeded its duration
+            if (simulatedDays >= plan.duration) {
+                console.log(
+                    `Investment duration exceeded for user ${user.username}, ending plan`
+                );
+                user.currentPlan = null;
+                await user.save();
+
+                // Update investment status to completed
+                await investmentModel.findOneAndUpdate(
+                    {
+                        user: user._id,
+                        "plan.planId": planId,
+                        status: "active",
+                    },
+                    {
+                        status: "completed",
+                        profitAccumulated: user.currentPlan.profitAccumulated,
+                    }
+                );
+                continue;
+            }
+
+            // Check if the end date has been reached
+            const currentDate = new Date();
+            if (endDate && new Date(endDate) <= currentDate) {
+                console.log(
+                    `End date reached for user ${user.username}, ending plan`
+                );
+                user.currentPlan = null;
+                await user.save();
+
+                // Update investment status to completed
+                await investmentModel.findOneAndUpdate(
+                    {
+                        user: user._id,
+                        "plan.planId": planId,
+                        status: "active",
+                    },
+                    {
+                        status: "completed",
+                        profitAccumulated: user.currentPlan.profitAccumulated,
+                    }
+                );
+                continue;
+            }
 
             // Calculate daily profit
             const dailyProfit = plan.profit / plan.duration;
 
-            // Check if incrementing simulatedDays will complete the plan duration
-            if (simulatedDays + 1 < plan.duration) {
-                // Update user's wallet profit
+            // Check if this is the last day (simulatedDays will equal duration - 1)
+            if (simulatedDays + 1 >= plan.duration) {
+                // This is the last day - add final profit and complete the plan
+                await walletModel.findOneAndUpdate(
+                    { "user.userId": user._id },
+                    { $inc: { profit: dailyProfit } }
+                );
+
+                const finalProfitAccumulated =
+                    user.currentPlan.profitAccumulated + dailyProfit;
+
+                // Update investment status to completed
+                await investmentModel.findOneAndUpdate(
+                    {
+                        user: user._id,
+                        "plan.planId": planId,
+                        status: "active",
+                    },
+                    {
+                        status: "completed",
+                        profitAccumulated: finalProfitAccumulated,
+                    }
+                );
+
+                user.currentPlan = null; // Remove the plan after completion
+                await user.save();
+
+                console.log(
+                    `Completed investment for user ${
+                        user.username
+                    } with final profit ${dailyProfit} (Day ${
+                        simulatedDays + 1
+                    } of ${plan.duration})`
+                );
+            } else {
+                // Normal day - increment profit and day count
                 await walletModel.findOneAndUpdate(
                     { "user.userId": user._id },
                     { $inc: { profit: dailyProfit } }
@@ -37,24 +125,8 @@ const calculateProfit = async () => {
                 await user.save();
 
                 console.log(
-                    `Updated profit for user ${
-                        user.username
-                    } by ${dailyProfit} (Day ${simulatedDays + 1} of ${
-                        plan.duration
-                    })`
+                    `Updated profit for user ${user.username} by ${dailyProfit} (Day ${user.currentPlan.simulatedDays} of ${plan.duration})`
                 );
-            } else {
-                // If this is the last day, update the profit and remove the plan
-                await walletModel.findOneAndUpdate(
-                    { "user.userId": user._id },
-                    { $inc: { profit: dailyProfit } }
-                );
-
-                user.currentPlan.profitAccumulated += dailyProfit;
-                user.currentPlan = null; // Remove the plan immediately
-                await user.save();
-
-                console.log(`Ended investment for user ${user.username}`);
             }
         }
     } catch (error) {

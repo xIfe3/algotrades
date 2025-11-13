@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { useForgotPasswordMutation } from "../api/authApiSlice.ts";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
+import FormInput from "../../../components/common/FormInput.tsx";
 import { LoadingBackdrop } from "../../../components/LoadingBackdrop.tsx";
-import { Box, Paper, Typography } from "@mui/material";
+import { FaKey, FaChartLine, FaInfoCircle } from "react-icons/fa";
 
 interface FormState {
     emailOrUsername: string | null;
@@ -54,83 +54,99 @@ const ForgotPasswordPage: React.FC = () => {
     }, [formState.emailOrUsername]);
 
     return (
-        <Box
-            sx={{
-                minHeight: "100vh",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                padding: "0 20px",
-            }}
-        >
-            <Paper
-                elevation={1}
-                sx={{
-                    padding: "40px",
-                    width: "100%",
-                    maxWidth: "400px",
-                }}
-            >
-                <Typography
-                    variant="h4"
-                    textAlign="center"
-                    mb={2}
-                    fontWeight="bold"
-                >
-                    Welcome to{" "}
-                    <Link to="/" className="text-primary font-black">
-                        Algotrades
-                    </Link>
-                </Typography>
-                <Typography
-                    variant="body2"
-                    textAlign="center"
-                    mb={4}
-                    color="textSecondary"
-                >
-                    Never mind?{" "}
-                    <Link to="/auth/login" style={{ color: "#EFAE1B" }}>
-                        Login
-                    </Link>
-                </Typography>
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+            <div className="w-full max-w-md">
+                {/* Logo/Brand Section */}
+                <div className="text-center mb-8">
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-600 rounded-xl mb-4">
+                        <FaChartLine className="text-white text-2xl" />
+                    </div>
+                    <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                        Forgot Password?
+                    </h1>
+                    <p className="text-gray-600">
+                        No worries, we'll send you reset instructions
+                    </p>
+                </div>
 
-                <form onSubmit={handleOnSubmit}>
-                    <FormControl
-                        fullWidth
-                        variant="outlined"
-                        sx={{ marginBottom: "20px" }}
-                    >
-                        <TextField
-                            id="emailOrUsername"
-                            label="Email or Username"
-                            name="emailOrUsername"
-                            value={formState.emailOrUsername}
-                            onChange={handleOnChange}
-                            inputRef={emailOrUsernameRef}
-                            variant="outlined"
+                {/* Reset Card */}
+                <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+                    <div className="flex items-center justify-center space-x-2 mb-6">
+                        <FaKey className="text-gray-400" />
+                        <h2 className="text-xl font-semibold text-gray-900">
+                            Reset Your Password
+                        </h2>
+                    </div>
+
+                    {/* Info Notice */}
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                        <div className="flex items-start space-x-2">
+                            <FaInfoCircle className="text-blue-600 mt-0.5 flex-shrink-0" />
+                            <p className="text-sm text-blue-800">
+                                Enter your email or username and we'll send you
+                                a link to reset your password.
+                            </p>
+                        </div>
+                    </div>
+
+                    <form onSubmit={handleOnSubmit}>
+                        <FormControl fullWidth sx={{ marginBottom: "20px" }}>
+                            <FormInput
+                                id="emailOrUsername"
+                                label="Email or Username"
+                                name="emailOrUsername"
+                                value={formState.emailOrUsername}
+                                onChange={handleOnChange}
+                            />
+                        </FormControl>
+
+                        <Button
+                            type="submit"
+                            variant="contained"
                             fullWidth
-                        />
-                    </FormControl>
+                            sx={{
+                                backgroundColor: "#2563EB",
+                                fontWeight: "600",
+                                padding: "12px 0",
+                                fontSize: "16px",
+                                textTransform: "none",
+                                borderRadius: "8px",
+                                "&:hover": {
+                                    backgroundColor: "#1D4ED8",
+                                },
+                            }}
+                            disabled={isLoading}
+                        >
+                            Send Reset Link
+                        </Button>
+                    </form>
+                </div>
 
-                    <Button
-                        type="submit"
-                        variant="contained"
-                        fullWidth
-                        sx={{
-                            backgroundColor: "#264653",
-                            fontWeight: "bold",
-                            padding: "10px 0",
-                            fontSize: "16px",
-                        }}
-                        disabled={isLoading}
+                {/* Divider */}
+                <div className="relative my-6">
+                    <div className="absolute inset-0 flex items-center">
+                        <div className="w-full border-t border-gray-200"></div>
+                    </div>
+                    <div className="relative flex justify-center text-sm">
+                        <span className="px-2 bg-white text-gray-500">
+                            Remember your password?
+                        </span>
+                    </div>
+                </div>
+
+                {/* Back to Login */}
+                <div className="text-center">
+                    <Link
+                        to="/auth/login"
+                        className="inline-flex items-center space-x-2 text-blue-600 hover:text-blue-700 font-medium"
                     >
-                        Forgot my password
-                    </Button>
-                </form>
-            </Paper>
+                        <span>Back to Login</span>
+                    </Link>
+                </div>
+            </div>
 
             <LoadingBackdrop open={isLoading} />
-        </Box>
+        </div>
     );
 };
 

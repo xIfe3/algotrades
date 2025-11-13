@@ -72,14 +72,19 @@ const LoginForm = () => {
                 variant="contained"
                 fullWidth
                 sx={{
-                    backgroundColor: "#264653",
-                    fontWeight: "bold",
-                    padding: "10px 0",
+                    backgroundColor: "#2563EB",
+                    fontWeight: "600",
+                    padding: "12px 0",
                     fontSize: "16px",
+                    textTransform: "none",
+                    borderRadius: "8px",
+                    "&:hover": {
+                        backgroundColor: "#1D4ED8",
+                    },
                 }}
                 disabled={isLoading}
             >
-                Verify
+                Verify Email
             </Button>
 
             <AlertMessage

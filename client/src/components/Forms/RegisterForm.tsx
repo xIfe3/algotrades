@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { FormControl, Button, Grid } from "@mui/material";
+import { FormControl, Button } from "@mui/material";
 import AlertMessage from "../common/Snackbar.tsx";
 import { LoadingBackdrop } from "../LoadingBackdrop.tsx";
 import { useRegisterMutation } from "../../features/auth/api/authApiSlice";
@@ -104,109 +104,100 @@ const RegisterForm = ({ refToken }: any) => {
     }, []);
 
     return (
-        <form onSubmit={handleOnSubmit}>
-            <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                    <FormControl fullWidth>
-                        <FormInput
-                            id="fullName"
-                            label="Full Name"
-                            name="fullName"
-                            value={formState.fullName}
-                            onChange={handleOnChange}
-                            ref={fullNameRef}
-                        />
-                    </FormControl>
-                </Grid>
+        <form onSubmit={handleOnSubmit} className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <FormControl fullWidth>
+                    <FormInput
+                        id="fullName"
+                        label="Full Name"
+                        name="fullName"
+                        value={formState.fullName}
+                        onChange={handleOnChange}
+                        ref={fullNameRef}
+                    />
+                </FormControl>
 
-                <Grid item xs={12} sm={6}>
-                    <FormControl fullWidth>
-                        <FormInput
-                            id="username"
-                            label="Username"
-                            name="username"
-                            value={formState.username}
-                            onChange={handleOnChange}
-                        />
-                    </FormControl>
-                </Grid>
+                <FormControl fullWidth>
+                    <FormInput
+                        id="username"
+                        label="Username"
+                        name="username"
+                        value={formState.username}
+                        onChange={handleOnChange}
+                    />
+                </FormControl>
 
-                <Grid item xs={12} sm={6}>
-                    <FormControl fullWidth>
-                        <FormInput
-                            id="email"
-                            type="email"
-                            label="Email Address"
-                            name="email"
-                            value={formState.email}
-                            onChange={handleOnChange}
-                        />
-                    </FormControl>
-                </Grid>
+                <FormControl fullWidth>
+                    <FormInput
+                        id="email"
+                        type="email"
+                        label="Email Address"
+                        name="email"
+                        value={formState.email}
+                        onChange={handleOnChange}
+                    />
+                </FormControl>
 
-                <Grid item xs={12} sm={6}>
-                    <FormControl fullWidth>
-                        <FormInput
-                            id="phoneNumber"
-                            label="Phone Number"
-                            name="phoneNumber"
-                            value={formState.phoneNumber}
-                            onChange={handleOnChange}
-                        />
-                    </FormControl>
-                </Grid>
+                <FormControl fullWidth>
+                    <FormInput
+                        id="phoneNumber"
+                        label="Phone Number"
+                        name="phoneNumber"
+                        value={formState.phoneNumber}
+                        onChange={handleOnChange}
+                    />
+                </FormControl>
 
-                <Grid item xs={12} sm={6}>
-                    <FormControl fullWidth>
-                        <FormInput
-                            id="password"
-                            label="Password"
-                            name="password"
-                            value={formState.password}
-                            onChange={handleOnChange}
-                            type="password"
-                            showPassword={showPasswords}
-                            onClickShowPassword={handleClickShowPassword}
-                            onMouseDownPassword={handleMouseDownPassword}
-                            onMouseUpPassword={handleMouseUpPassword}
-                        />
-                    </FormControl>
-                </Grid>
+                <FormControl fullWidth>
+                    <FormInput
+                        id="password"
+                        label="Password"
+                        name="password"
+                        value={formState.password}
+                        onChange={handleOnChange}
+                        type="password"
+                        showPassword={showPasswords}
+                        onClickShowPassword={handleClickShowPassword}
+                        onMouseDownPassword={handleMouseDownPassword}
+                        onMouseUpPassword={handleMouseUpPassword}
+                    />
+                </FormControl>
 
-                <Grid item xs={12} sm={6}>
-                    <FormControl fullWidth>
-                        <FormInput
-                            id="password"
-                            label="Re-enter Password"
-                            name="confirmPassword"
-                            value={formState.confirmPassword}
-                            onChange={handleOnChange}
-                            type="password"
-                            showPassword={showPasswords}
-                            onClickShowPassword={handleClickShowPassword}
-                            onMouseDownPassword={handleMouseDownPassword}
-                            onMouseUpPassword={handleMouseUpPassword}
-                        />
-                    </FormControl>
-                </Grid>
-            </Grid>
+                <FormControl fullWidth>
+                    <FormInput
+                        id="confirmPassword"
+                        label="Confirm Password"
+                        name="confirmPassword"
+                        value={formState.confirmPassword}
+                        onChange={handleOnChange}
+                        type="password"
+                        showPassword={showPasswords}
+                        onClickShowPassword={handleClickShowPassword}
+                        onMouseDownPassword={handleMouseDownPassword}
+                        onMouseUpPassword={handleMouseUpPassword}
+                    />
+                </FormControl>
+            </div>
 
             <Button
                 type="submit"
                 variant="contained"
                 fullWidth
                 sx={{
-                    backgroundColor: "#264653",
-                    fontWeight: "bold",
+                    backgroundColor: "#2563eb",
+                    fontWeight: "600",
                     padding: "12px 0",
                     fontSize: "16px",
+                    textTransform: "none",
+                    borderRadius: "8px",
+                    marginTop: "24px",
                     "&:hover": {
-                        backgroundColor: "#FF7043",
+                        backgroundColor: "#1d4ed8",
                     },
                 }}
-                disabled={!formState.email || !formState.password}
+                disabled={!formState.email || !formState.password || isLoading}
             >
-                REGISTER
+                {isLoading ? "Creating Account..." : "Create Account"}
             </Button>
 
             <AlertMessage
