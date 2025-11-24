@@ -3,6 +3,13 @@ import planModel from "../models/plan.model";
 
 const investmentPlans = [
     {
+        name: "INVEST $500 EARN $4,000",
+        duration: 5,
+        durationType: "days",
+        initialInvestment: 500,
+        profit: 4000,
+    },
+    {
         name: "INVEST $1000 EARN $8,000",
         duration: 5,
         durationType: "days",

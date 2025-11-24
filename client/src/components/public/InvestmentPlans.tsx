@@ -4,10 +4,11 @@ import "aos/dist/aos.css"; // Import AOS CSS
 
 const InvestmentPlans = () => {
     const fiveDaysPlan = [
-        { plan: "INVEST $1000 EARN $8,000" },
-        { plan: "INVEST $2000 EARN $16,000" },
-        { plan: "INVEST $3000 EARN $32,000" },
-        { plan: "INVEST $5000 EARN $40,000" },
+        { plan: "INVEST $500 EARN $4,000" },
+        { plan: "INVEST $1,000 EARN $8,000" },
+        { plan: "INVEST $2,000 EARN $16,000" },
+        { plan: "INVEST $3,000 EARN $32,000" },
+        { plan: "INVEST $5,000 EARN $40,000" },
     ];
     const tenDaysPlan = [
         { plan: "INVEST $10,000 EARN $80,000" },

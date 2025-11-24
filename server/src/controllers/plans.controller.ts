@@ -48,6 +48,6 @@ export const editPlan = asyncHandler(async (req: Request, res: Response) => {
 });
 
 export const getAllPlans = asyncHandler(async (req: Request, res: Response) => {
-    const plans = await planModel.find();
+    const plans = await planModel.find().sort({ initialInvestment: 1 }); // Sort by initialInvestment ascending (lowest first)
     return logData(res, 200, { plans });
 });

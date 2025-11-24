@@ -41,12 +41,17 @@ const ReinvestForm = () => {
     const [reinvest, { isLoading: isReinvestLoading }] = useReinvestMutation();
 
     useEffect(() => {
-        // Populate plansData with initial investment amounts
-        const formattedPlans = (plans.plans || []).map((plan: any) => ({
-            value: plan._id,
-            title: `Invest $${formatAmount(plan.initialInvestment)} Get $${formatAmount(plan.profit)} (Duration ${plan.duration} ${plan.durationType})`,
-            amount: plan.initialInvestment, // Add the initial investment amount
-        }));
+        // Populate plansData with initial investment amounts, sorted by investment amount (lowest first)
+        const formattedPlans = [...(plans.plans || [])]
+            .sort((a: any, b: any) => {
+                // Sort by initialInvestment in ascending order (lowest first)
+                return a.initialInvestment - b.initialInvestment;
+            })
+            .map((plan: any) => ({
+                value: plan._id,
+                title: `Invest $${formatAmount(plan.initialInvestment)} Get $${formatAmount(plan.profit)} (Duration ${plan.duration} ${plan.durationType})`,
+                amount: plan.initialInvestment, // Add the initial investment amount
+            }));
         setPlansData(formattedPlans);
     }, [plans]);
 

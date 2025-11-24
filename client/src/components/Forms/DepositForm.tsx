@@ -48,11 +48,16 @@ const DepositForm = () => {
         useHandleUserDepositMutation();
     const { data: plans = {} } = useGetAllUserPlansQuery({});
 
-    const plansData = (plans.plans || []).map((plan: any) => ({
-        value: plan._id,
-        title: `Invest $${formatAmount(plan.initialInvestment)} Get $${formatAmount(plan.profit)} (Duration ${plan.duration} ${plan.durationType})`,
-        amount: plan.initialInvestment, // Add the initial investment amount
-    }));
+    const plansData = [...(plans.plans || [])]
+        .sort((a: any, b: any) => {
+            // Sort by initialInvestment in ascending order (lowest first)
+            return a.initialInvestment - b.initialInvestment;
+        })
+        .map((plan: any) => ({
+            value: plan._id,
+            title: `Invest $${formatAmount(plan.initialInvestment)} Get $${formatAmount(plan.profit)} (Duration ${plan.duration} ${plan.durationType})`,
+            amount: plan.initialInvestment, // Add the initial investment amount
+        }));
 
     // Update the amount field whenever the plan changes
     useEffect(() => {
