@@ -27,9 +27,16 @@ const ContactPage = () => {
                             <IoLogoWhatsapp className="w-12 h-12 rounded-full bg-secondary text-lightGrey p-3" />
                             <div className="flex flex-col ">
                                 <h4 className="text-semibold">
-                                    Contact Number
+                                    Message Algotradesltd on WhatsApp
                                 </h4>
-                                <p>+44 792 369 2232</p>
+                                <p>
+                                    <a
+                                        href="https://wa.me/447388830197"
+                                        target="_blank"
+                                    >
+                                        +44 7388 301 97
+                                    </a>
+                                </p>
                             </div>
                         </div>
                         <div className="flex space-x-6 items-center">

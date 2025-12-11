@@ -114,9 +114,15 @@ const CryptoReceiveCard = () => {
                             Our support team is available 24/7 to assist you
                             with any deposit-related questions.
                         </p>
-                        <button className="bg-gray-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 active:scale-95">
-                            Contact Support
-                        </button>
+
+                        <p className="text-sm text-gray-600 mb-3 underline">
+                            <a
+                                href="https://wa.me/447388830197"
+                                target="_blank"
+                            >
+                                Message Algotradesltd on WhatsApp.
+                            </a>
+                        </p>
                     </div>
                 </div>
             </div>
